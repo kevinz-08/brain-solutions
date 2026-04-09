@@ -12,6 +12,9 @@ export const metadata: Metadata = {
   title: "Brain Solutions — Soluciones digitales inteligentes",
   description:
     "Transformamos procesos complejos en soluciones digitales que generan resultados reales. Desarrollo, automatización e IA para tu empresa.",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({

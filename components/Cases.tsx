@@ -27,16 +27,6 @@ const cases = [
       { value: "2min", label: "respuesta promedio" },
     ],
   },
-  {
-    industry: "SaaS",
-    title: "Dashboard analítico unificado",
-    problem: "Datos dispersos en 5 herramientas dificultaban decisiones rápidas.",
-    solution: "Plataforma centralizada con KPIs en tiempo real e insights automatizados.",
-    metrics: [
-      { value: "100%", label: "visibilidad" },
-      { value: "5x", label: "decisiones más rápidas" },
-    ],
-  },
 ];
 
 export default function Cases() {

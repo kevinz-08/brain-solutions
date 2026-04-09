@@ -1,0 +1,72 @@
+<svg viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#111113"/>
+      <stop offset="100%" stop-color="#0B0B0C"/>
+    </linearGradient>
+    <linearGradient id="acc2" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#6366F1"/>
+      <stop offset="50%" stop-color="#818CF8"/>
+      <stop offset="100%" stop-color="#8B5CF6"/>
+    </linearGradient>
+    <radialGradient id="glow2" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#8B5CF6" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#8B5CF6" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid2" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1F1F23" stroke-width="0.5"/>
+    </pattern>
+  </defs>
+
+  <rect width="600" height="600" fill="url(#bg2)"/>
+  <rect width="600" height="600" fill="url(#grid2)"/>
+  <ellipse cx="300" cy="300" rx="320" ry="250" fill="url(#glow2)"/>
+
+  <!-- Compass rings -->
+  <g transform="translate(300 300)" opacity="0.2">
+    <circle r="240" fill="none" stroke="#818CF8" stroke-width="0.5" stroke-dasharray="2 6"/>
+    <circle r="180" fill="none" stroke="#818CF8" stroke-width="0.5" stroke-dasharray="2 6"/>
+  </g>
+
+  <!-- Roadmap path -->
+  <path d="M 80 460 Q 180 460, 200 380 T 320 280 Q 380 230, 420 180 T 540 100"
+        fill="none" stroke="url(#acc2)" stroke-width="3" stroke-linecap="round"
+        stroke-dasharray="0"/>
+
+  <!-- Path glow -->
+  <path d="M 80 460 Q 180 460, 200 380 T 320 280 Q 380 230, 420 180 T 540 100"
+        fill="none" stroke="#6366F1" stroke-width="10" stroke-linecap="round" opacity="0.15"/>
+
+  <!-- Milestones -->
+  <g>
+    <!-- M1 -->
+    <circle cx="80" cy="460" r="14" fill="#0B0B0C" stroke="#6366F1" stroke-width="2"/>
+    <circle cx="80" cy="460" r="5" fill="#818CF8"/>
+    <text x="80" y="500" text-anchor="middle" fill="#A1A1AA" font-family="monospace" font-size="10">START</text>
+
+    <!-- M2 -->
+    <circle cx="220" cy="350" r="14" fill="#0B0B0C" stroke="#6366F1" stroke-width="2"/>
+    <circle cx="220" cy="350" r="5" fill="#818CF8"/>
+    <rect x="180" y="295" width="80" height="32" rx="6" fill="#111113" stroke="#1F1F23"/>
+    <text x="220" y="316" text-anchor="middle" fill="#E4E4E7" font-family="sans-serif" font-size="11">Phase 1</text>
+
+    <!-- M3 -->
+    <circle cx="340" cy="260" r="14" fill="#0B0B0C" stroke="#818CF8" stroke-width="2"/>
+    <circle cx="340" cy="260" r="5" fill="#E4E4E7"/>
+    <rect x="300" y="200" width="80" height="32" rx="6" fill="#111113" stroke="#1F1F23"/>
+    <text x="340" y="221" text-anchor="middle" fill="#E4E4E7" font-family="sans-serif" font-size="11">Phase 2</text>
+
+    <!-- M4 -->
+    <circle cx="460" cy="160" r="14" fill="#0B0B0C" stroke="#8B5CF6" stroke-width="2"/>
+    <circle cx="460" cy="160" r="5" fill="#A78BFA"/>
+    <rect x="420" y="100" width="80" height="32" rx="6" fill="#111113" stroke="#1F1F23"/>
+    <text x="460" y="121" text-anchor="middle" fill="#E4E4E7" font-family="sans-serif" font-size="11">Phase 3</text>
+
+    <!-- Goal -->
+    <circle cx="540" cy="100" r="18" fill="#6366F1" fill-opacity="0.2" stroke="#818CF8" stroke-width="2"/>
+    <circle cx="540" cy="100" r="6" fill="#E4E4E7"/>
+    <text x="540" y="80" text-anchor="middle" fill="#818CF8" font-family="monospace" font-size="10">GOAL</text>
+  </g>
+
+  <text x="300" y="560" text-anchor="middle" fill="#71717A" font-family="monospace" font-size="11" letter-spacing="2">02 / ROADMAP</text>
+</svg>

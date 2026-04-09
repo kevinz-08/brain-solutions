@@ -139,7 +139,7 @@ export default function About() {
               {/* Stat overlays */}
               <div className="absolute top-6 left-6 px-3 py-2 rounded-xl border border-border bg-bg/80 backdrop-blur-md">
                 <div className="text-[10px] text-text-muted">Proyectos</div>
-                <div className="text-lg font-semibold text-text-title">+40</div>
+                <div className="text-lg font-semibold text-text-title">+10</div>
               </div>
               <div className="absolute bottom-6 right-6 px-3 py-2 rounded-xl border border-border bg-bg/80 backdrop-blur-md">
                 <div className="text-[10px] text-text-muted">Satisfacción</div>

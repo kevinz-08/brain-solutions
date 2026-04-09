@@ -3,6 +3,8 @@
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 const links = [
   { label: "Soluciones", href: "#solutions" },
@@ -31,18 +33,18 @@ export default function Navbar() {
     >
       <div className="mx-auto max-w-6xl px-6 flex items-center justify-between">
         {/* Logo */}
-        <a href="#" className="flex items-center gap-2.5 group">
-          <div className="relative w-8 h-8">
-            <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-accent to-accent-purple opacity-80 group-hover:opacity-100 transition" />
-            <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-accent to-accent-purple blur-md opacity-50" />
-            <div className="absolute inset-[2px] rounded-[7px] bg-bg flex items-center justify-center">
-              <span className="text-sm font-bold text-gradient-accent">B</span>
-            </div>
-          </div>
-          <span className="text-[15px] font-semibold text-text-title tracking-tight">
-            Brain<span className="text-text-body font-normal">Solutions</span>
-          </span>
-        </a>
+        <Link
+          href="/"
+          className="flex items-center gap-2.5 group transition-opacity duration-300 hover:opacity-80"
+        >
+          <Image
+            src="/logo.png"
+            alt="logo"
+            width={120}
+            height={40}
+            className="h-10 w-auto"
+          />
+        </Link>
 
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-1">
@@ -66,8 +68,18 @@ export default function Navbar() {
           >
             <span className="absolute inset-0 rounded-full bg-gradient-to-b from-accent/0 via-accent/0 to-accent/30 opacity-0 group-hover:opacity-100 transition-opacity" />
             <span className="relative">Agendar consultoría</span>
-            <svg className="relative w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" viewBox="0 0 16 16" fill="none">
-              <path d="M3 8h10m0 0L8 3m5 5l-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            <svg
+              className="relative w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5"
+              viewBox="0 0 16 16"
+              fill="none"
+            >
+              <path
+                d="M3 8h10m0 0L8 3m5 5l-5 5"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
             </svg>
           </a>
         </div>

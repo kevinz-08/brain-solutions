@@ -11,7 +11,7 @@ import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
-    <main className="relative">
+    <main className="relative" style={{ overflowX: "clip" }}>
       <Navbar />
       <Hero />
       <Problem />

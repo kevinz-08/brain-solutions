@@ -63,7 +63,7 @@ export default function Process() {
       id="process"
       ref={containerRef}
       className="relative"
-      style={{ height: "320vh" }}
+      style={{ height: "220vh" }}
     >
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
 

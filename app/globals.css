@@ -17,8 +17,9 @@
 }
 
 html {
-  scroll-behavior: smooth;
   background-color: #0B0B0C;
+  /* NO scroll-behavior: smooth — handled by useSmoothScroll hook */
+  /* NO overflow-x: hidden — breaks position: sticky in Process */
 }
 
 body {
@@ -26,6 +27,13 @@ body {
   color: #E4E4E7;
   font-feature-settings: "ss01", "cv11";
   letter-spacing: -0.011em;
+  /* Use clip instead of hidden — clips overflow without breaking sticky */
+  overflow-x: clip;
+}
+
+/* Scroll target offset — so sections land below the navbar */
+section[id] {
+  scroll-margin-top: 40px;
 }
 
 /* Custom scrollbar */

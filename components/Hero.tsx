@@ -1,11 +1,13 @@
 "use client";
 
+import { useSmoothScroll } from "@/lib/hooks/useSmoothScroll";
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
 export default function Hero() {
+  const smoothScroll = useSmoothScroll();
   return (
     <section className="relative pt-40 pb-24 md:pt-48 md:pb-32 overflow-hidden">
       {/* Background effects */}
@@ -74,6 +76,7 @@ export default function Hero() {
         >
           <a
             href="#cta"
+            onClick={(e) => smoothScroll(e, "#cta")}
             className="group relative inline-flex items-center gap-2 px-5 py-3 rounded-full text-sm font-medium text-white overflow-hidden"
           >
             <span className="absolute inset-0 bg-gradient-to-b from-accent to-accent-purple" />
@@ -84,6 +87,7 @@ export default function Hero() {
           </a>
           <a
             href="#cases"
+            onClick={(e) => smoothScroll(e, "#cases")}
             className="inline-flex items-center gap-2 px-5 py-3 rounded-full text-sm font-medium text-text-title border border-border hover:border-border-bright bg-bg-secondary/30 hover:bg-bg-secondary/60 backdrop-blur-sm transition-all"
           >
             Ver casos de éxito

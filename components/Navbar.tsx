@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useSmoothScroll } from "@/lib/hooks/useSmoothScroll";
 
 const links = [
   { label: "Soluciones", href: "#solutions" },
@@ -17,8 +18,17 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const { scrollY } = useScroll();
+  const smoothScroll = useSmoothScroll();
 
   useMotionValueEvent(scrollY, "change", (v) => setScrolled(v > 24));
+
+  const handleNavClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
+    smoothScroll(e, href);
+    setOpen(false);
+  };
 
   return (
     <motion.header
@@ -52,6 +62,7 @@ export default function Navbar() {
             <a
               key={link.href}
               href={link.href}
+              onClick={(e) => handleNavClick(e, link.href)}
               className="px-3.5 py-2 text-sm text-text-body hover:text-text-title transition-colors duration-200 relative group"
             >
               {link.label}
@@ -64,6 +75,7 @@ export default function Navbar() {
         <div className="hidden md:block">
           <a
             href="#cta"
+            onClick={(e) => handleNavClick(e, "#cta")}
             className="group relative inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium text-white bg-gradient-to-b from-white/10 to-white/5 border border-white/10 hover:border-white/20 transition-all duration-300 hover:shadow-[0_0_30px_-5px_rgba(99,102,241,0.6)]"
           >
             <span className="absolute inset-0 rounded-full bg-gradient-to-b from-accent/0 via-accent/0 to-accent/30 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -105,7 +117,7 @@ export default function Navbar() {
             <a
               key={l.href}
               href={l.href}
-              onClick={() => setOpen(false)}
+              onClick={(e) => handleNavClick(e, l.href)}
               className="px-3 py-2.5 text-sm text-text-body hover:text-text-title rounded-lg hover:bg-white/5"
             >
               {l.label}
@@ -113,7 +125,7 @@ export default function Navbar() {
           ))}
           <a
             href="#cta"
-            onClick={() => setOpen(false)}
+            onClick={(e) => handleNavClick(e, "#cta")}
             className="mt-2 px-3 py-2.5 text-sm text-center text-white rounded-lg bg-accent/20 border border-accent/40"
           >
             Agendar consultoría

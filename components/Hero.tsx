@@ -1,205 +1,173 @@
 "use client";
 
-import { useSmoothScroll } from "@/lib/hooks/useSmoothScroll";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Play, Pause, PlayCircle } from "lucide-react";
+import { useSmoothScroll } from "@/lib/hooks/useSmoothScroll";
+import { EASE } from "./Reveal";
 
-const ease = [0.16, 1, 0.3, 1] as const;
+const badges = ["Inventario en tiempo real", "Clientes y pedidos en un panel", "Listo para escalar"];
 
 export default function Hero() {
-  const smoothScroll = useSmoothScroll();
+  const smoothScroll = useSmoothScroll(72);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [playing, setPlaying] = useState(true);
+
+  // Silencio garantizado (algunos navegadores ignoran el atributo en hidratación)
+  // y respeto por quien pide menos movimiento: el video arranca pausado.
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    v.muted = true;
+
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced) {
+      v.pause();
+      setPlaying(false);
+    }
+  }, []);
+
+  const toggle = () => {
+    const v = videoRef.current;
+    if (!v) return;
+    if (v.paused) {
+      v.play();
+      setPlaying(true);
+    } else {
+      v.pause();
+      setPlaying(false);
+    }
+  };
+
   return (
-    <section className="relative pt-40 pb-24 md:pt-48 md:pb-32 overflow-hidden">
-      {/* Background effects */}
-      <div className="absolute inset-0 grid-pattern opacity-60 [mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_70%)]" />
+    <section className="relative overflow-hidden bg-white pb-20 pt-36 md:pb-28 md:pt-44">
+      {/* Halo de acento detrás del titular */}
+      <div className="pointer-events-none absolute -top-40 left-0 h-[420px] w-[620px] rounded-full bg-brand-100/50 blur-[130px]" />
 
-      {/* Glow orbs */}
-      <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-accent/20 rounded-full blur-[120px] opacity-50 animate-pulse-glow" />
-      <div className="absolute top-40 left-1/4 w-[400px] h-[400px] bg-accent-purple/15 rounded-full blur-[100px]" />
-
-      {/* Top fade line */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-32 bg-gradient-to-b from-transparent via-accent/50 to-transparent" />
-
-      <div className="relative mx-auto max-w-6xl px-6">
-        {/* Eyebrow */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease }}
-          className="flex justify-center mb-8"
-        >
-        </motion.div>
-
-        {/* Title */}
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease, delay: 0.1 }}
-          className="text-center text-[42px] sm:text-6xl md:text-7xl font-semibold tracking-[-0.04em] leading-[1.02] max-w-4xl mx-auto"
-        >
-          <span className="text-gradient">Impulsamos el crecimiento</span>
-          <br />
-          <span className="text-text-title">de tu empresa con</span>{" "}
-          <span className="relative inline-block">
-            <span className="text-gradient-accent italic font-light">soluciones</span>
-            <svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 300 12" fill="none">
-              <path d="M2 9C50 4 150 1 298 6" stroke="url(#g)" strokeWidth="2" strokeLinecap="round"/>
-              <defs>
-                <linearGradient id="g" x1="0" y1="0" x2="300" y2="0">
-                  <stop stopColor="#6366F1" stopOpacity="0"/>
-                  <stop offset="0.5" stopColor="#818CF8"/>
-                  <stop offset="1" stopColor="#8B5CF6" stopOpacity="0"/>
-                </linearGradient>
-              </defs>
-            </svg>
-          </span>{" "}
-          <span className="text-text-title">inteligentes</span>
-        </motion.h1>
-
-        {/* Subtitle */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease, delay: 0.3 }}
-          className="mt-8 text-center text-lg md:text-xl text-text-body max-w-2xl mx-auto leading-relaxed"
-        >
-          Con Brain Solutions transformamos procesos complejos en
-          soluciones digitales que generan resultados reales.
-        </motion.p>
-
-        {/* CTAs */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease, delay: 0.45 }}
-          className="mt-10 flex items-center justify-center gap-3"
-        >
-          <a
-            href="#cta"
-            onClick={(e) => smoothScroll(e, "#cta")}
-            className="group relative inline-flex items-center gap-2 px-5 py-3 rounded-full text-sm font-medium text-white overflow-hidden"
+      <div className="relative mx-auto grid max-w-[84rem] items-center gap-16 px-6 lg:grid-cols-[minmax(0,28rem)_minmax(0,1fr)] lg:gap-12">
+        {/* ── Columna de texto ── */}
+        <div>
+          <motion.h1
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: EASE, delay: 0.1 }}
+            className="text-[2.6rem] font-semibold leading-[1.06] tracking-[-0.04em] text-ink-title sm:text-5xl md:text-[3.4rem] lg:text-[3.1rem] xl:text-[3.4rem]"
           >
-            <span className="absolute inset-0 bg-gradient-to-b from-accent to-accent-purple" />
-            <span className="absolute inset-0 bg-gradient-to-b from-white/20 to-transparent opacity-50" />
-            <span className="absolute -inset-1 bg-gradient-to-r from-accent via-accent-glow to-accent-purple opacity-50 blur-xl group-hover:opacity-80 transition-opacity" />
-            <span className="relative">Agenda una cita</span>
-            <ArrowRight className="relative w-4 h-4 transition-transform group-hover:translate-x-0.5" />
-          </a>
-          <a
-            href="#cases"
-            onClick={(e) => smoothScroll(e, "#cases")}
-            className="inline-flex items-center gap-2 px-5 py-3 rounded-full text-sm font-medium text-text-title border border-border hover:border-border-bright bg-bg-secondary/30 hover:bg-bg-secondary/60 backdrop-blur-sm transition-all"
+            Tu tienda física, ahora vendiendo{" "}
+            <span className="text-gradient-brand">24/7</span> sin límites.
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: EASE, delay: 0.2 }}
+            className="mt-6 max-w-xl text-lg leading-relaxed text-ink-body"
           >
-            Ver casos de éxito
-          </a>
-        </motion.div>
+            Digitalizamos tu negocio mediante aplicaciones web personalizadas,
+            dándote el control total de tu inventario y tus clientes.
+          </motion.p>
 
-        {/* Dashboard mockup */}
+          {/* CTAs */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: EASE, delay: 0.3 }}
+            className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center"
+          >
+            <a
+              href="#agendar"
+              onClick={(e) => smoothScroll(e, "#agendar")}
+              className="group inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-full bg-brand-600 px-6 py-3.5 text-[15px] font-semibold text-white shadow-brand xl:px-7 xl:text-base transition-all duration-300 hover:-translate-y-0.5 hover:scale-[1.02] hover:bg-brand-700 hover:shadow-brand-lg active:scale-[0.99]"
+            >
+              Agenda una Demo
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </a>
+
+            <a
+              href="#proceso"
+              onClick={(e) => smoothScroll(e, "#proceso")}
+              className="group inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-full border border-line bg-white px-6 py-3.5 text-[15px] font-semibold text-ink-title xl:px-7 xl:text-base transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-200 hover:bg-brand-50 hover:text-brand-700"
+            >
+              <PlayCircle className="h-[18px] w-[18px] text-ink-muted transition-colors duration-300 group-hover:text-brand-600" />
+              Ver cómo funciona
+            </a>
+          </motion.div>
+        </div>
+
+        {/* ── Columna visual: panel del dashboard ── */}
         <motion.div
-          initial={{ opacity: 0, y: 60 }}
+          initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, ease, delay: 0.6 }}
-          className="mt-20 relative"
+          transition={{ duration: 1, ease: EASE, delay: 0.25 }}
+          className="relative"
         >
-          {/* Glow under */}
-          <div className="absolute -inset-4 bg-gradient-to-r from-accent/20 via-accent-purple/20 to-accent/20 blur-3xl opacity-60" />
+          {/* Lienzo reticulado. En móvil enmarca al panel; en escritorio sangra
+              hasta el borde derecho y de arriba abajo (lo recorta la sección). */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -inset-x-6 -inset-y-10 lg:left-[-1.5rem] lg:right-[-50vw] lg:top-[-70rem] lg:bottom-[-70rem]"
+          >
+            <div className="absolute inset-0 bg-surface-soft" />
+            <div className="absolute inset-0 grid-blueprint" />
+            <div className="absolute inset-x-0 top-0 h-px bg-line lg:hidden" />
+            <div className="absolute inset-x-0 bottom-0 h-px bg-line lg:hidden" />
+            <div className="absolute inset-y-0 left-0 hidden w-px bg-line lg:block" />
+          </div>
 
-          <div className="relative rounded-2xl border border-border bg-gradient-to-b from-bg-secondary to-bg overflow-hidden shadow-2xl">
-            {/* Window chrome */}
-            <div className="flex items-center gap-2 px-4 py-3 border-b border-border bg-bg-secondary/80">
-              <div className="flex gap-1.5">
-                <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
-                <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
-                <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
-              </div>
-              <div className="flex-1 flex justify-center">
-                <div className="px-3 py-0.5 rounded-md bg-bg/50 text-[10px] text-text-muted border border-border">
-                  app.brainsolutions.io/dashboard
-                </div>
+          {/* Resplandor cromático detrás del borde superior del panel */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -top-8 left-4 right-0 h-32 rounded-[100px] bg-[linear-gradient(90deg,#4F46E5_0%,#7C3AED_28%,#C026D3_52%,#F43F5E_76%,#FB923C_100%)] opacity-50 blur-[46px]"
+          />
+
+          {/* Panel: alineado al borde derecho del contenedor, simétrico con el texto */}
+          <div className="relative mx-auto w-full max-w-[620px] rounded-2xl border border-line bg-white p-2.5 shadow-lift lg:mx-0 lg:max-w-none">
+            {/* Barra del navegador */}
+            <div className="flex items-center gap-2 px-2 pb-2.5 pt-1">
+              <span className="h-2.5 w-2.5 rounded-full bg-slate-200" />
+              <span className="h-2.5 w-2.5 rounded-full bg-slate-200" />
+              <span className="h-2.5 w-2.5 rounded-full bg-slate-200" />
+              <div className="ml-2 flex h-5 flex-1 items-center rounded-full bg-surface-soft px-3">
+                <span className="text-[9px] font-medium tracking-wide text-ink-muted">
+                  tutienda.com/admin
+                </span>
               </div>
             </div>
 
-            {/* Dashboard content */}
-            <div className="p-6 grid grid-cols-12 gap-4">
-              {/* Sidebar */}
-              <div className="col-span-3 space-y-2">
-                <div className="text-[10px] text-text-muted uppercase tracking-wider mb-3">Workspace</div>
-                {["Overview", "Automatizaciones", "IA Workflows", "Integraciones", "Reportes"].map((item, i) => (
-                  <div
-                    key={item}
-                    className={`px-2.5 py-1.5 rounded-md text-[11px] flex items-center gap-2 ${
-                      i === 1 ? "bg-accent/15 text-accent-glow border border-accent/20" : "text-text-body"
-                    }`}
-                  >
-                    <div className={`w-1 h-1 rounded-full ${i === 1 ? "bg-accent-glow" : "bg-text-muted"}`} />
-                    {item}
-                  </div>
-                ))}
-              </div>
-
-              {/* Main */}
-              <div className="col-span-9 space-y-4">
-                {/* Stats row */}
-                <div className="grid grid-cols-3 gap-3">
-                  {[
-                    { label: "Procesos automatizados", value: "847", change: "+24%" },
-                    { label: "Horas ahorradas/mes", value: "1,240", change: "+38%" },
-                    { label: "Tasa de éxito", value: "99.2%", change: "+1.4%" },
-                  ].map((stat, i) => (
-                    <motion.div
-                      key={stat.label}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 1.2 + i * 0.15, duration: 0.6 }}
-                      className="rounded-xl border border-border bg-bg/40 p-3"
-                    >
-                      <div className="text-[10px] text-text-muted">{stat.label}</div>
-                      <div className="mt-1 text-xl font-semibold text-text-title">{stat.value}</div>
-                      <div className="text-[10px] text-emerald-400 mt-0.5">{stat.change}</div>
-                    </motion.div>
-                  ))}
-                </div>
-
-                {/* Chart */}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 1.6, duration: 0.8 }}
-                  className="rounded-xl border border-border bg-bg/40 p-4 h-44 relative overflow-hidden"
-                >
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="text-[11px] text-text-body">Rendimiento últimos 30 días</div>
-                    <div className="flex gap-1">
-                      <div className="px-2 py-0.5 rounded text-[9px] bg-accent/15 text-accent-glow">30D</div>
-                    </div>
-                  </div>
-                  <svg className="w-full h-28" viewBox="0 0 400 100" preserveAspectRatio="none">
-                    <defs>
-                      <linearGradient id="chartg" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="#6366F1" stopOpacity="0.4"/>
-                        <stop offset="100%" stopColor="#6366F1" stopOpacity="0"/>
-                      </linearGradient>
-                    </defs>
-                    <motion.path
-                      initial={{ pathLength: 0 }}
-                      animate={{ pathLength: 1 }}
-                      transition={{ duration: 2, delay: 1.8, ease: "easeInOut" }}
-                      d="M0,80 C40,70 60,60 100,55 S160,40 200,35 S280,25 320,18 S380,8 400,5"
-                      stroke="#818CF8"
-                      strokeWidth="1.5"
-                      fill="none"
-                    />
-                    <motion.path
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 3, duration: 0.8 }}
-                      d="M0,80 C40,70 60,60 100,55 S160,40 200,35 S280,25 320,18 S380,8 400,5 L400,100 L0,100 Z"
-                      fill="url(#chartg)"
-                    />
-                  </svg>
-                </motion.div>
-              </div>
+            {/* Demo del dashboard: sin audio, en bucle, sin controles nativos */}
+            <div className="relative overflow-hidden rounded-xl border border-line bg-surface-soft">
+              <video
+                ref={videoRef}
+                width={1600}
+                height={832}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                poster="/videosDemo/demoDashboard-poster.webp"
+                className="block h-auto w-full"
+                aria-label="Demostración del panel de administración: inventario, pedidos y clientes en tiempo real"
+              >
+                {/* WebM primero: quien soporte VP9 descarga el archivo más liviano */}
+                <source src="/videosDemo/demoDashboard.webm" type="video/webm" />
+                <source src="/videosDemo/demoDashboard.mp4" type="video/mp4" />
+              </video>
             </div>
+
+            {/* Píldora flotante: control real de reproducción */}
+            <button
+              onClick={toggle}
+              aria-pressed={!playing}
+              className="group absolute left-1/2 top-1/2 inline-flex -translate-x-1/2 -translate-y-1/2 items-center justify-center gap-2.5 rounded-full bg-ink-title px-5 py-3 text-sm font-semibold text-white shadow-lift transition-all duration-300 hover:-translate-y-[calc(50%+2px)] hover:scale-[1.03] active:scale-[0.98]"
+            >
+              {playing ? (
+                <Pause className="h-4 w-4 fill-white" />
+              ) : (
+                <Play className="h-4 w-4 fill-white" />
+              )}
+              {playing ? "Pausar demo" : "Ver demo"}
+            </button>
           </div>
         </motion.div>
       </div>

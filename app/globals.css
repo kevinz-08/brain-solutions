@@ -3,12 +3,12 @@
 @tailwind utilities;
 
 :root {
-  --bg: #0B0B0C;
-  --bg-secondary: #111113;
-  --border: #1F1F23;
-  --text-title: #E4E4E7;
-  --text-body: #A1A1AA;
-  --accent: #6366F1;
+  --surface: #ffffff;
+  --surface-soft: #f8fafc;
+  --line: #e2e8f0;
+  --ink-title: #0f172a;
+  --ink-body: #475569;
+  --brand: #7c3aed;
 }
 
 * {
@@ -17,89 +17,111 @@
 }
 
 html {
-  background-color: #0B0B0C;
-  /* NO scroll-behavior: smooth — handled by useSmoothScroll hook */
-  /* NO overflow-x: hidden — breaks position: sticky in Process */
+  background-color: #ffffff;
+  /* NO scroll-behavior: smooth — lo maneja el hook useSmoothScroll */
+  /* NO overflow-x: hidden — rompe position: sticky en Process */
 }
 
 body {
-  background-color: #0B0B0C;
-  color: #E4E4E7;
+  background-color: #ffffff;
+  color: var(--ink-title);
   font-feature-settings: "ss01", "cv11";
   letter-spacing: -0.011em;
-  /* Use clip instead of hidden — clips overflow without breaking sticky */
+  /* clip en lugar de hidden — recorta el overflow sin romper sticky */
   overflow-x: clip;
 }
 
-/* Scroll target offset — so sections land below the navbar */
+/* Offset de scroll — para que las secciones caigan bajo el navbar */
 section[id] {
-  scroll-margin-top: 40px;
+  scroll-margin-top: 80px;
 }
 
-/* Custom scrollbar */
+/* Scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: #0B0B0C;
+  background: #f8fafc;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1F1F23;
+  background: #e2e8f0;
   border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #2A2A30;
+  background: #cbd5e1;
 }
 
-/* Selection */
 ::selection {
-  background: rgba(99, 102, 241, 0.3);
-  color: #E4E4E7;
+  background: rgba(124, 58, 237, 0.16);
+  color: #0f172a;
 }
 
-/* Utility classes */
-.text-gradient {
-  background: linear-gradient(135deg, #E4E4E7 0%, #A1A1AA 50%, #818CF8 100%);
+/* Degradado de acento para titulares */
+.text-gradient-brand {
+  background: linear-gradient(120deg, #7c3aed 0%, #a78bfa 55%, #7c3aed 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-.text-gradient-accent {
-  background: linear-gradient(135deg, #818CF8 0%, #6366F1 50%, #8B5CF6 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.glass {
-  background: rgba(17, 17, 19, 0.6);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-}
-
-.glow-accent {
-  box-shadow: 0 0 60px -15px rgba(99, 102, 241, 0.5);
-}
-
+/* Malla sutil de fondo */
 .grid-pattern {
-  background-image:
-    linear-gradient(to right, rgba(255,255,255,0.025) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255,255,255,0.025) 1px, transparent 1px);
-  background-size: 60px 60px;
+  background-image: linear-gradient(to right, rgba(15, 23, 42, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 23, 42, 0.045) 1px, transparent 1px);
+  background-size: 64px 64px;
 }
 
-.noise::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
-  opacity: 0.03;
-  pointer-events: none;
-  mix-blend-mode: overlay;
+/* Retícula de diseño: líneas finas, bajo contraste, sensación de blueprint.
+   Se usa como fondo del área donde se asienta el panel del dashboard. */
+.grid-blueprint {
+  background-image: linear-gradient(to right, rgba(15, 23, 42, 0.055) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 23, 42, 0.055) 1px, transparent 1px);
+  background-size: 32px 32px;
 }
 
-/* Hide scrollbar for marquee */
-.no-scrollbar::-webkit-scrollbar { display: none; }
-.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+/* Subdivisión aun mas tenue, para densidad tecnica sin ruido visual */
+.grid-blueprint-fine {
+  background-image: linear-gradient(to right, rgba(15, 23, 42, 0.028) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 23, 42, 0.028) 1px, transparent 1px);
+  background-size: 8px 8px;
+}
+
+/* Desvanecido lateral para marquesinas */
+.fade-x {
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Respeta la preferencia de menos movimiento */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Retícula de marca: visible sobre fondos claros (sección #alcance) */
+.grid-pattern-brand {
+  background-image: linear-gradient(to right, rgba(124, 58, 237, 0.13) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(124, 58, 237, 0.13) 1px, transparent 1px);
+  background-size: 72px 72px;
+}
+
+/* Subdivisión más tenue, para densidad sin ruido */
+.grid-pattern-brand-fine {
+  background-image: linear-gradient(to right, rgba(124, 58, 237, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(124, 58, 237, 0.06) 1px, transparent 1px);
+  background-size: 18px 18px;
+}

@@ -9,9 +9,23 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Brain Solutions — Soluciones digitales inteligentes",
+  title: "Brain Solutions — E-commerce web a medida para tu tienda",
   description:
-    "Transformamos procesos complejos en soluciones digitales que generan resultados reales. Desarrollo, automatización e IA para tu empresa.",
+    "Digitalizamos tiendas con e-commerce web a medida: diseño propio, checkout optimizado e integración con pagos, inventario y envíos. Agenda una llamada.",
+  keywords: [
+    "e-commerce a medida",
+    "desarrollo tienda online",
+    "digitalizar tienda",
+    "Next.js e-commerce",
+    "agencia e-commerce",
+  ],
+  openGraph: {
+    title: "Brain Solutions — E-commerce web a medida",
+    description:
+      "Tu tienda merece algo mejor que una plantilla genérica. Diseñamos y desarrollamos e-commerce a medida para negocios que quieren vender online en serio.",
+    type: "website",
+    locale: "es_ES",
+  },
   icons: {
     icon: "/favicon.ico",
   },
@@ -24,7 +38,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es" className={inter.variable}>
-      <body className="bg-bg text-text-title font-sans antialiased">
+      <body className="bg-white font-sans text-ink-title antialiased">
         {children}
       </body>
     </html>

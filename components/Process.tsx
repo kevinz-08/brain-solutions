@@ -1,223 +1,236 @@
 "use client";
 
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
-import Image from "next/image";
-
-import analysisImg from "@/public/process/analysis.svg";
-import strategyImg from "@/public/process/strategy.svg";
-import developmentImg from "@/public/process/development.svg";
-import scalingImg from "@/public/process/scaling.svg";
+import { useEffect, useRef, useState } from "react";
+import { motion, useScroll, useSpring } from "framer-motion";
+import { Compass, PenTool, Code2, Rocket } from "lucide-react";
+import Reveal, { EASE } from "./Reveal";
 
 const steps = [
   {
-    num: "01",
-    title: "Análisis",
-    desc: "Analizamos tu negocio y detectamos oportunidades de mejora.",
-    image: analysisImg,
-  },
-  {
-    num: "02",
+    icon: Compass,
+    step: "01",
     title: "Estrategia",
-    desc: "Diseñamos una solución adaptada a tus objetivos.",
-    image: strategyImg,
+    duration: "Semana 1",
+    body: "Entendemos tu catálogo, tus márgenes y a quién le vendes. Definimos objetivos de conversión, alcance y prioridades antes de dibujar una sola pantalla.",
   },
   {
-    num: "03",
+    icon: PenTool,
+    step: "02",
+    title: "Diseño UI/UX",
+    duration: "Semanas 2-3",
+    body: "Diseñamos el recorrido completo de compra: home, categoría, ficha de producto y checkout. Prototipo navegable para que lo valides antes de programar.",
+  },
+  {
+    icon: Code2,
+    step: "03",
     title: "Desarrollo",
-    desc: "Construimos tu solución con tecnología moderna y escalable.",
-    image: developmentImg,
+    duration: "Semanas 4-7",
+    body: "Frontend en Next.js y backend con tu catálogo, pagos, envíos e inventario. Entregas semanales en un entorno de pruebas para revisar avances reales.",
   },
   {
-    num: "04",
-    title: "Escalamiento",
-    desc: "Optimizamos y mejoramos continuamente para maximizar resultados.",
-    image: scalingImg,
+    icon: Rocket,
+    step: "04",
+    title: "Lanzamiento",
+    duration: "Semana 8",
+    body: "Migración, pruebas de carga, SEO técnico y puesta en producción. Capacitamos a tu equipo y acompañamos las primeras semanas de venta real.",
   },
 ];
 
 export default function Process() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [activeStep, setActiveStep] = useState(0);
+  const trackRef = useRef<HTMLOListElement>(null);
+  const itemRefs = useRef<(HTMLLIElement | null)[]>([]);
+  const [active, setActive] = useState(0);
 
+  // La línea de progreso se dibuja a medida que el recorrido cruza el viewport
   const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
+    target: trackRef,
+    offset: ["start 70%", "end 65%"],
+  });
+  const progress = useSpring(scrollYProgress, {
+    stiffness: 90,
+    damping: 24,
+    restDelta: 0.001,
   });
 
+  // El paso que cruza la banda central del viewport pasa a estar activo
   useEffect(() => {
-    const unsubscribe = scrollYProgress.on("change", (progress) => {
-      const stepIndex = Math.min(
-        steps.length - 1,
-        Math.max(0, Math.floor(progress * steps.length))
-      );
-      setActiveStep(stepIndex);
-    });
-    return () => unsubscribe();
-  }, [scrollYProgress]);
+    const els = itemRefs.current.filter(Boolean) as HTMLLIElement[];
+    if (!els.length || typeof IntersectionObserver === "undefined") return;
 
-  const progressHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActive(Number((entry.target as HTMLElement).dataset.index));
+          }
+        });
+      },
+      { rootMargin: "-45% 0px -45% 0px", threshold: 0 },
+    );
+
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
+
+  const goToStep = (i: number) => {
+    itemRefs.current[i]?.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
 
   return (
-    <section
-      id="process"
-      ref={containerRef}
-      className="relative"
-      style={{ height: "220vh" }}
-    >
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
+    <section id="proceso" className="relative bg-white py-24 md:py-32">
+      {/* Halo de marca muy tenue, ancla la composición sin ensuciarla */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute -left-40 top-1/3 h-[420px] w-[420px] rounded-full bg-brand-100/50 blur-3xl"
+      />
 
-      {/* Sticky viewport */}
-      <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
-        {/* Background ambience */}
-        <div className="absolute inset-0 grid-pattern opacity-30 [mask-image:radial-gradient(ellipse_at_center,black_10%,transparent_60%)]" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-accent/[0.06] blur-[140px] rounded-full pointer-events-none" />
+      <div className="relative mx-auto max-w-6xl px-6">
+        <div className="grid gap-14 lg:grid-cols-[minmax(0,22rem)_1fr] lg:gap-20">
+          {/* ── Columna fija: encabezado + índice del recorrido ── */}
+          <div className="lg:sticky lg:top-28 lg:self-start">
+            <Reveal>
+              <h2 className="mt-5 text-[2rem] font-extrabold leading-[1.05] tracking-[-0.04em] text-ink-title sm:text-[2.5rem]">
+                Un proceso claro,
+                <br className="hidden sm:block" /> sin sorpresas a mitad de camino
+              </h2>
+              <p className="mt-5 text-base leading-relaxed text-ink-body">
+                Ocho semanas promedio desde la primera reunión hasta la primera venta. Sabes
+                en qué etapa estás y qué recibes en cada una.
+              </p>
+            </Reveal>
 
-        <div className="relative w-full mx-auto max-w-6xl px-6 py-10">
-          {/* Header */}
-          <div className="mb-8 md:mb-12">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border bg-bg-secondary/50">
-              <div className="w-1 h-1 rounded-full bg-accent-glow" />
-              <span className="text-[11px] font-medium text-text-body uppercase tracking-wider">
-                Cómo trabajamos
-              </span>
-            </div>
-            <h2 className="mt-4 text-3xl md:text-4xl lg:text-5xl font-semibold tracking-[-0.035em] leading-[1.05] text-text-title max-w-2xl">
-              Un proceso claro,{" "}
-              <span className="text-text-body italic font-light">
-                de la idea al impacto
-              </span>
-            </h2>
-          </div>
-
-          {/* TWO-COLUMN LAYOUT */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
-            {/* LEFT — Steps + progress indicator */}
-            <div className="relative order-2 md:order-1">
-              <div className="flex gap-5 md:gap-6">
-                {/* Vertical progress line */}
-                <div className="relative flex-shrink-0 w-3 flex justify-center pt-2">
-                  <div className="relative w-px bg-border" style={{ height: "100%" }}>
-                    <motion.div
-                      style={{ height: progressHeight }}
-                      className="absolute top-0 left-0 w-px bg-gradient-to-b from-accent via-accent-glow to-accent-purple"
-                    />
-                    {/* Dots */}
-                    {steps.map((_, i) => {
-                      const position = (i / (steps.length - 1)) * 100;
-                      const isReached = activeStep >= i;
-                      const isActive = activeStep === i;
-                      return (
-                        <div
-                          key={i}
-                          style={{ top: `${position}%` }}
-                          className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2"
-                        >
-                          <motion.div
-                            animate={{ scale: isActive ? 1.3 : 1 }}
-                            transition={{ duration: 0.4 }}
-                            className={`w-3 h-3 rounded-full border-2 transition-colors duration-500 ${
-                              isReached
-                                ? "bg-accent border-accent-glow shadow-[0_0_12px_rgba(99,102,241,0.6)]"
-                                : "bg-bg border-border"
-                            }`}
-                          />
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                {/* Steps text */}
-                <div className="flex-1 min-w-0 space-y-7 md:space-y-8">
-                  {steps.map((step, i) => {
-                    const isActive = activeStep === i;
+            {/* Índice: marca en qué punto del recorrido va el usuario */}
+            <Reveal delay={0.12}>
+              <nav aria-label="Etapas del proceso" className="mt-10 hidden lg:block">
+                <ul className="space-y-1">
+                  {steps.map(({ step, title }, i) => {
+                    const isActive = active === i;
                     return (
-                      <motion.div
-                        key={step.num}
-                        animate={{
-                          opacity: isActive ? 1 : 0.35,
-                          x: isActive ? 0 : -4,
-                        }}
-                        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                        className="origin-left"
-                      >
-                        <div
-                          className={`text-[10px] font-mono mb-1 transition-colors duration-500 ${
-                            isActive ? "text-accent-glow" : "text-text-muted"
+                      <li key={step}>
+                        <button
+                          type="button"
+                          onClick={() => goToStep(i)}
+                          className={`group flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition-colors duration-300 ${
+                            isActive ? "bg-brand-50" : "hover:bg-surface-soft"
                           }`}
                         >
-                          {step.num}
-                        </div>
-                        <h3
-                          className={`text-xl md:text-2xl lg:text-3xl font-semibold tracking-tight transition-colors duration-500 ${
-                            isActive ? "text-text-title" : "text-text-body"
-                          }`}
-                        >
-                          {step.title}
-                        </h3>
-                        <motion.p
-                          animate={{
-                            opacity: isActive ? 1 : 0,
-                            height: isActive ? "auto" : 0,
-                            marginTop: isActive ? 8 : 0,
-                          }}
-                          transition={{
-                            duration: 0.5,
-                            ease: [0.16, 1, 0.3, 1],
-                          }}
-                          className="text-sm md:text-base text-text-body leading-relaxed max-w-md overflow-hidden"
-                        >
-                          {step.desc}
-                        </motion.p>
-                      </motion.div>
+                          <span className="relative h-px w-8 overflow-hidden bg-line">
+                            <motion.span
+                              className="absolute inset-0 origin-left bg-brand-600"
+                              initial={false}
+                              animate={{ scaleX: isActive ? 1 : 0 }}
+                              transition={{ duration: 0.45, ease: EASE }}
+                            />
+                          </span>
+                          <span
+                            className={`text-xs font-bold tracking-wider transition-colors duration-300 ${
+                              isActive ? "text-brand-600" : "text-ink-muted"
+                            }`}
+                          >
+                            {step}
+                          </span>
+                          <span
+                            className={`text-sm font-semibold transition-colors duration-300 ${
+                              isActive ? "text-ink-title" : "text-ink-body"
+                            }`}
+                          >
+                            {title}
+                          </span>
+                        </button>
+                      </li>
                     );
                   })}
-                </div>
+                </ul>
+              </nav>
+            </Reveal>
+
+            <Reveal delay={0.2}>
+              <div className="mt-10 rounded-2xl border border-line bg-surface-soft p-5">
+                <p className="text-sm leading-relaxed text-ink-body">
+                  ¿Tu proyecto es más grande o más urgente?{" "}
+                  <span className="font-semibold text-brand-700">
+                    Ajustamos el plan en la primera llamada.
+                  </span>
+                </p>
               </div>
-            </div>
+            </Reveal>
+          </div>
 
-            {/* RIGHT — Image */}
-            <div className="relative order-1 md:order-2">
-              <div className="relative aspect-square w-full max-w-[420px] md:max-w-none mx-auto">
-                {/* Glow */}
-                <div className="absolute -inset-8 bg-accent/15 blur-3xl rounded-full pointer-events-none" />
+          {/* ── Recorrido de pasos ── */}
+          <ol ref={trackRef} className="relative">
+            {/* Riel y progreso */}
+            <div className="absolute left-[27px] top-3 hidden h-[calc(100%-3rem)] w-px bg-line sm:block" />
+            <motion.div
+              style={{ scaleY: progress }}
+              className="absolute left-[27px] top-3 hidden h-[calc(100%-3rem)] w-px origin-top bg-gradient-to-b from-brand-500 to-brand-700 sm:block"
+            />
 
-                {/* Image container */}
-                <div className="relative w-full h-full rounded-3xl border border-border bg-bg-secondary/40 overflow-hidden backdrop-blur-sm">
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={activeStep}
-                      initial={{ opacity: 0, scale: 0.96, filter: "blur(8px)" }}
-                      animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                      exit={{ opacity: 0, scale: 1.02, filter: "blur(8px)" }}
-                      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                      className="absolute inset-0"
-                    >
-                      <Image
-                        src={steps[activeStep].image}
-                        alt={steps[activeStep].title}
-                        fill
-                        className="object-cover"
-                        priority={activeStep === 0}
+            {steps.map(({ icon: Icon, step, title, duration, body }, i) => {
+              const isActive = active === i;
+
+              return (
+                <motion.li
+                  key={step}
+                  ref={(el) => {
+                    itemRefs.current[i] = el;
+                  }}
+                  data-index={i}
+                  initial={{ opacity: 0, y: 32 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-90px" }}
+                  transition={{ duration: 0.7, ease: EASE }}
+                  className="relative pb-12 last:pb-0 sm:pl-24 md:pb-16"
+                >
+                  {/* Nodo del riel: se enciende cuando el paso está activo */}
+                  <span
+                    className={`relative mb-5 grid h-12 w-12 place-items-center rounded-2xl transition-all duration-500 sm:absolute sm:left-0 sm:top-0 sm:mb-0 sm:h-14 sm:w-14 ${
+                      isActive
+                        ? "bg-gradient-to-br from-brand-500 via-brand-600 to-brand-800 shadow-brand ring-1 ring-inset ring-white/25"
+                        : "border border-line bg-white shadow-soft"
+                    }`}
+                  >
+                    {isActive && (
+                      <span
+                        aria-hidden
+                        className="pointer-events-none absolute inset-x-2 top-1 h-1/3 rounded-full bg-white/25 blur-[5px]"
                       />
-                    </motion.div>
-                  </AnimatePresence>
+                    )}
+                    <Icon
+                      strokeWidth={1.9}
+                      className={`relative h-5 w-5 transition-colors duration-500 sm:h-6 sm:w-6 ${
+                        isActive ? "text-white" : "text-brand-600"
+                      }`}
+                    />
+                  </span>
 
-                  {/* Top accent line */}
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-accent to-transparent" />
+                  {/* Número fantasma: da escala sin añadir ruido */}
+                  <span
+                    aria-hidden
+                    className="pointer-events-none absolute right-0 top-0 text-6xl font-black leading-none tracking-tighter text-ink-title/[0.05] md:text-8xl"
+                  >
+                    {step}
+                  </span>
 
-                  {/* Step badge */}
-                  <div className="absolute top-5 left-5 px-3 py-1.5 rounded-full border border-border bg-bg/80 backdrop-blur-md flex items-center gap-2 z-10">
-                    <div className="w-1.5 h-1.5 rounded-full bg-accent-glow animate-pulse" />
-                    <span className="text-[10px] font-mono text-text-body uppercase tracking-wider">
-                      Step {steps[activeStep].num}
+                  <div className="flex items-center gap-3">
+                    <span className="text-xs font-bold tracking-wider text-brand-600">
+                      {step}
+                    </span>
+                    <span className="h-px w-5 bg-line" />
+                    <span className="text-xs font-medium uppercase tracking-wider text-ink-muted">
+                      {duration}
                     </span>
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
+
+                  <h3 className="mt-3 text-[1.75rem] font-extrabold leading-[1.05] tracking-[-0.04em] text-ink-title md:text-[2.25rem]">
+                    {title}
+                  </h3>
+                  <p className="mt-4 max-w-[54ch] text-[15px] leading-relaxed text-ink-body">
+                    {body}
+                  </p>
+                </motion.li>
+              );
+            })}
+          </ol>
         </div>
       </div>
     </section>

@@ -2,7 +2,7 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import WhatWeDo from "@/components/WhatWeDo";
 import Process from "@/components/Process";
-import Industries from "@/components/Industries";
+import Categories from "@/components/Categories";
 import Cases from "@/components/Cases";
 import FAQ from "@/components/FAQ";
 import CTA from "@/components/CTA";
@@ -15,7 +15,7 @@ export default function Home() {
       <Hero />
       <WhatWeDo />
       <Process />
-      <Industries />
+      <Categories />
       <Cases />
       <FAQ />
       <CTA />

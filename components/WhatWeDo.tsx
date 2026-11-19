@@ -5,9 +5,9 @@ import {
   Palette,
   Gauge,
   Plug,
-  BarChart3,
+  Search,
+  MessageCircle,
   Lock,
-  Sparkles,
   Check,
   X,
 } from "lucide-react";
@@ -16,89 +16,59 @@ import Reveal, { EASE } from "./Reveal";
 import DeviceShowcase from "./DeviceShowcase";
 
 /**
- * Cada item lleva su propia paleta: el icono es una pieza "3D" (gradiente +
- * luz superior + sombra tintada) en lugar de un glifo plano monocromo.
+ * El icono es una pieza "3D" (gradiente carbón + luz superior + halo dorado)
+ * en lugar de un glifo plano. Todos comparten la misma paleta.
  */
 const items = [
   {
+    icon: Search,
+    title: "Encuentra la pieza exacta por vehículo",
+    body: "Selector de marca, modelo y año (o placa) para que el cliente vea solo lo que le sirve a su carro. Menos devoluciones y menos \"¿esto le queda a mi carro?\" por WhatsApp.",
+  },
+  {
     icon: Palette,
-    title: "Identidad propia, no una plantilla",
-    body: "Cada tienda se diseña desde cero sobre tu marca: tu tipografía, tu color, tu forma de vender. Nada de temas reciclados que se ven igual que la competencia.",
-    from: "#F472B6",
-    to: "#DB2777",
-    glow: "rgba(219,39,119,0.45)",
+    title: "Una vitrina a la altura de lo que vendes",
+    body: "Diseño propio sobre tu marca, con fotografía grande y fichas técnicas claras. Una tienda de accesorios de lujo no puede verse como una plantilla genérica.",
   },
   {
     icon: Gauge,
     title: "Velocidad que se traduce en ventas",
-    body: "Construimos sobre Next.js con renderizado optimizado. Menos segundos de carga significan menos carritos abandonados y mejor posicionamiento.",
-    from: "#FBBF24",
-    to: "#EA580C",
-    glow: "rgba(234,88,12,0.45)",
+    body: "Construimos sobre Next.js con renderizado optimizado. Catálogos de miles de referencias que cargan rápido y posicionan mejor en Google.",
   },
   {
     icon: Plug,
-    title: "Integrado con tu operación real",
-    body: "Conectamos pasarelas de pago, facturación, inventario y transportadoras para que la tienda hable con los sistemas que ya usas a diario.",
-    from: "#38BDF8",
-    to: "#2563EB",
-    glow: "rgba(37,99,235,0.45)",
+    title: "Integrada con tu operación real",
+    body: "PSE, Nequi, tarjetas y contraentrega; facturación electrónica; transportadoras; e inventario sincronizado entre tu local y la tienda online.",
   },
   {
-    icon: BarChart3,
-    title: "Datos que sí puedes usar",
-    body: "Analítica y eventos de conversión configurados desde el día uno, para que sepas qué producto vende, qué canal trae clientes y dónde se pierde la venta.",
-    from: "#34D399",
-    to: "#059669",
-    glow: "rgba(5,150,105,0.45)",
+    icon: MessageCircle,
+    title: "Cotización y WhatsApp donde se necesita",
+    body: "Piezas de alto valor o por pedido pueden cotizarse con un clic y llegar directo a tu asesor, con el vehículo y la referencia ya especificados.",
   },
   {
     icon: Lock,
-    title: "Tuyo, sin rentas eternas",
+    title: "Tuya, sin rentas eternas",
     body: "El código y los datos son de tu empresa. Sin comisiones por venta ni funciones bloqueadas detrás de un plan más caro cada año.",
-    from: "#A78BFA",
-    to: "#6D28D9",
-    glow: "rgba(109,40,217,0.45)",
-  },
-  {
-    icon: Sparkles,
-    title: "Preparado para crecer",
-    body: "Arquitectura pensada para sumar catálogo, idiomas, sedes o marketplaces sin tener que rehacer la tienda dentro de dos años.",
-    from: "#22D3EE",
-    to: "#0D9488",
-    glow: "rgba(13,148,136,0.45)",
   },
 ];
 
 const comparison = {
   generic: [
-    "Diseño idéntico al de miles de tiendas",
+    "Sin búsqueda real por marca, modelo y año",
     "Comisión por cada venta que haces",
     "Funciones clave detrás de apps de pago",
     "Rendimiento limitado por el tema",
   ],
   custom: [
-    "Diseño único alineado a tu marca",
+    "Compatibilidad por vehículo en cada pieza",
     "Cero comisiones sobre tus ventas",
     "Cada función hecha para tu operación",
-    "Optimizada al detalle, carga en < 2s",
+    "Catálogo grande que carga en menos de 2 s",
   ],
 };
 
 /** Icono volumétrico con flotación + halo pulsante infinitos. */
-function LiveIcon({
-  icon: Icon,
-  from,
-  to,
-  glow,
-  index,
-}: {
-  icon: typeof Palette;
-  from: string;
-  to: string;
-  glow: string;
-  index: number;
-}) {
+function LiveIcon({ icon: Icon, index }: { icon: typeof Palette; index: number }) {
   const reduced = useReducedMotion();
 
   const float = reduced
@@ -130,25 +100,26 @@ function LiveIcon({
         aria-hidden
         {...pulse}
         className="absolute -inset-3 rounded-[32px] opacity-50 blur-2xl"
-        style={{ backgroundImage: `linear-gradient(135deg, ${from}, ${to})` }}
+        style={{ backgroundImage: "linear-gradient(135deg, #E0C783, #C9A24B)" }}
       />
 
       <motion.span
         {...float}
         className="relative grid h-[68px] w-[68px] place-items-center rounded-[22px] md:h-[76px] md:w-[76px]"
         style={{
-          backgroundImage: `linear-gradient(150deg, ${from} 0%, ${to} 100%)`,
-          boxShadow: `0 18px 34px -12px ${glow}, inset 0 1px 1px rgba(255,255,255,0.55), inset 0 -6px 14px -6px rgba(0,0,0,0.35)`,
+          backgroundImage: "linear-gradient(150deg, #2A2F37 0%, #0B0D10 100%)",
+          boxShadow:
+            "0 18px 34px -12px rgba(11,13,16,0.5), inset 0 1px 1px rgba(255,255,255,0.25), inset 0 -6px 14px -6px rgba(0,0,0,0.5)",
         }}
       >
         {/* Reflejo superior: da el volumen tipo "3D glass" */}
         <span
           aria-hidden
-          className="pointer-events-none absolute inset-x-2 top-1.5 h-1/3 rounded-full bg-white/40 blur-[6px]"
+          className="pointer-events-none absolute inset-x-2 top-1.5 h-1/3 rounded-full bg-white/20 blur-[6px]"
         />
         <Icon
           strokeWidth={2.1}
-          className="relative h-8 w-8 text-white drop-shadow-[0_2px_3px_rgba(0,0,0,0.28)] md:h-9 md:w-9"
+          className="relative h-8 w-8 text-gold-300 drop-shadow-[0_2px_3px_rgba(0,0,0,0.4)] md:h-9 md:w-9"
         />
       </motion.span>
     </div>
@@ -163,15 +134,15 @@ export default function WhatWeDo() {
           title={
             <>
               Construimos la tienda que
-              <br className="hidden sm:block" /> tu negocio realmente necesita
+              <br className="hidden sm:block" /> tu catálogo automotriz necesita
             </>
           }
-          description="Una solución genérica te acomoda a su molde. Un e-commerce a medida se construye alrededor de cómo vendes tú."
+          description="Un catálogo de repuestos no cabe en una plantilla. Un e-commerce a medida se construye alrededor de tus marcas, tus compatibilidades y tu forma de vender."
         />
 
         {/* Recorrido escalonado: izquierda / derecha alternadas con desfase */}
         <ul className="mt-12 flex flex-col gap-4 md:mt-20 md:gap-8 lg:gap-0">
-          {items.map(({ icon, title, body, from, to, glow }, i) => {
+          {items.map(({ icon, title, body }, i) => {
             const isRight = i % 2 === 1;
 
             return (
@@ -187,12 +158,12 @@ export default function WhatWeDo() {
                   i > 0 ? "lg:-mt-20" : "",
                 ].join(" ")}
               >
-                <div className="relative overflow-hidden rounded-[20px] border border-line bg-white p-5 shadow-soft transition-all duration-500 hover:-translate-y-1.5 hover:border-brand-200 hover:shadow-lift sm:rounded-[24px] sm:p-7 md:rounded-[28px] md:p-10">
+                <div className="relative overflow-hidden rounded-[20px] border border-line bg-white p-5 shadow-soft transition-all duration-500 hover:-translate-y-1.5 hover:border-gold-200 hover:shadow-lift sm:rounded-[24px] sm:p-7 md:rounded-[28px] md:p-10">
                   {/* Tinte de color que aparece al pasar el cursor */}
                   <span
                     aria-hidden
                     className="pointer-events-none absolute -right-16 -top-16 h-44 w-44 rounded-full opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-25"
-                    style={{ backgroundImage: `linear-gradient(135deg, ${from}, ${to})` }}
+                    style={{ backgroundImage: "linear-gradient(135deg, #E0C783, #C9A24B)" }}
                   />
 
                   {/* Índice del recorrido */}
@@ -202,7 +173,7 @@ export default function WhatWeDo() {
 
                   {/* En movil el icono se oculta: la lectura va directa a titulo + texto */}
                   <div className="hidden md:block">
-                    <LiveIcon icon={icon} from={from} to={to} glow={glow} index={i} />
+                    <LiveIcon icon={icon} index={i} />
                   </div>
 
                   <h3 className="relative pr-10 text-[1.15rem] font-extrabold leading-[1.2] tracking-[-0.03em] text-ink-title sm:pr-14 sm:text-[1.5rem] sm:leading-[1.12] md:mt-7 md:pr-0 md:text-[2rem] md:tracking-[-0.035em]">
@@ -245,15 +216,15 @@ export default function WhatWeDo() {
               <DeviceShowcase className="relative w-full max-w-[560px]" />
             </div>
 
-            <div className="relative bg-brand-50/50 p-8 md:p-10 lg:p-7">
-              <p className="text-xs font-semibold uppercase tracking-wider text-brand-700">
+            <div className="relative bg-gold-50/50 p-8 md:p-10 lg:p-7">
+              <p className="text-xs font-semibold uppercase tracking-wider text-gold-700">
                 E-commerce a medida
               </p>
               <ul className="mt-6 space-y-4">
                 {comparison.custom.map((t) => (
                   <li key={t} className="flex items-start gap-3">
-                    <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-brand-600">
-                      <Check className="h-3 w-3 text-white" />
+                    <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-carbon-950">
+                      <Check className="h-3 w-3 text-gold-300" />
                     </span>
                     <span className="text-sm font-medium text-ink-title">{t}</span>
                   </li>

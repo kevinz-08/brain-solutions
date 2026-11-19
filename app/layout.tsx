@@ -9,22 +9,28 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Brain Solutions — E-commerce web a medida para tu tienda",
+  metadataBase: new URL("https://lumoecom.com"),
+  title: "Lumo Ecom — E-commerce a medida para repuestos y lujo automotriz",
   description:
-    "Digitalizamos tiendas con e-commerce web a medida: diseño propio, checkout optimizado e integración con pagos, inventario y envíos. Agenda una llamada.",
+    "Creamos tiendas online a medida para repuestos y accesorios de lujo para automóviles en Bucaramanga, Cúcuta, Medellín y Bogotá. Búsqueda por vehículo, pagos locales e inventario real.",
   keywords: [
-    "e-commerce a medida",
-    "desarrollo tienda online",
-    "digitalizar tienda",
+    "tienda online repuestos para carros",
+    "e-commerce autopartes",
+    "página web accesorios para carros",
+    "desarrollo e-commerce Bucaramanga",
+    "desarrollo e-commerce Cúcuta",
+    "desarrollo e-commerce Medellín",
+    "desarrollo e-commerce Bogotá",
     "Next.js e-commerce",
-    "agencia e-commerce",
   ],
   openGraph: {
-    title: "Brain Solutions — E-commerce web a medida",
+    title: "Lumo Ecom — E-commerce a medida para repuestos y lujo automotriz",
     description:
-      "Tu tienda merece algo mejor que una plantilla genérica. Diseñamos y desarrollamos e-commerce a medida para negocios que quieren vender online en serio.",
+      "Tu tienda de repuestos o accesorios de lujo merece algo mejor que una plantilla genérica. Diseñamos e-commerce a medida en Bucaramanga, Cúcuta, Medellín y Bogotá.",
     type: "website",
-    locale: "es_ES",
+    locale: "es_CO",
+    siteName: "Lumo Ecom",
+    url: "https://lumoecom.com",
   },
   icons: {
     icon: "/favicon.ico",
@@ -37,7 +43,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es" className={inter.variable}>
+    <html lang="es-CO" className={inter.variable}>
       <body className="bg-white font-sans text-ink-title antialiased">
         {children}
       </body>

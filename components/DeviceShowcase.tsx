@@ -14,7 +14,7 @@ import { MonitorSmartphone } from "lucide-react";
 /** Pantalla vacía: se usa cuando aún no hay captura del proyecto. */
 function ScreenFallback({ compact = false }: { compact?: boolean }) {
   return (
-    <div className="absolute inset-0 grid place-items-center bg-gradient-to-br from-[#1e1b3a] via-[#171430] to-[#0f0d24]">
+    <div className="absolute inset-0 grid place-items-center bg-gradient-to-br from-[#1C2026] via-[#12151A] to-[#0B0D10]">
       <span
         aria-hidden
         className="grid-pattern-brand-fine absolute inset-0 opacity-40 mix-blend-screen"
@@ -22,10 +22,10 @@ function ScreenFallback({ compact = false }: { compact?: boolean }) {
       <span className="relative flex flex-col items-center gap-1.5 text-center">
         <MonitorSmartphone
           strokeWidth={1.6}
-          className={compact ? "h-4 w-4 text-brand-300" : "h-6 w-6 text-brand-300"}
+          className={compact ? "h-4 w-4 text-gold-300" : "h-6 w-6 text-gold-300"}
         />
         {!compact && (
-          <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-brand-200">
+          <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-gold-200">
             Próximamente
           </span>
         )}
@@ -38,7 +38,7 @@ function Laptop({ src, alt, sizes }: { src?: string; alt: string; sizes: string 
   return (
     <div className="w-full">
       {/* Tapa + pantalla */}
-      <div className="relative rounded-[11px] bg-gradient-to-b from-[#4b5563] via-[#374151] to-[#1f2937] p-[5px] shadow-[0_22px_44px_-20px_rgba(15,23,42,0.6)]">
+      <div className="relative rounded-[11px] bg-gradient-to-b from-[#4b5563] via-[#374151] to-[#1f2937] p-[5px] shadow-[0_22px_44px_-20px_rgba(17,20,24,0.6)]">
         <span
           aria-hidden
           className="absolute left-1/2 top-[1.5px] h-[2px] w-[2px] -translate-x-1/2 rounded-full bg-white/40"
@@ -64,7 +64,7 @@ function Laptop({ src, alt, sizes }: { src?: string; alt: string; sizes: string 
       </div>
 
       {/* Base / bisagra: algo más ancha que la tapa */}
-      <div className="relative left-1/2 h-[10px] w-[114%] -translate-x-1/2 rounded-b-[9px] bg-gradient-to-b from-[#dfe3e8] via-[#c3c9d1] to-[#9aa1aa] shadow-[0_10px_18px_-12px_rgba(15,23,42,0.6)]">
+      <div className="relative left-1/2 h-[10px] w-[114%] -translate-x-1/2 rounded-b-[9px] bg-gradient-to-b from-[#dfe3e8] via-[#c3c9d1] to-[#9aa1aa] shadow-[0_10px_18px_-12px_rgba(17,20,24,0.6)]">
         <span
           aria-hidden
           className="absolute left-1/2 top-0 h-[3px] w-[15%] -translate-x-1/2 rounded-b-full bg-[#8b929b]"
@@ -77,7 +77,7 @@ function Laptop({ src, alt, sizes }: { src?: string; alt: string; sizes: string 
 function Phone({ src, alt, sizes }: { src?: string; alt: string; sizes: string }) {
   return (
     <div className="relative w-full">
-      <div className="rounded-[26px] bg-gradient-to-b from-[#4b5563] via-[#374151] to-[#1f2937] p-[3px] shadow-[0_20px_36px_-16px_rgba(15,23,42,0.65)]">
+      <div className="rounded-[26px] bg-gradient-to-b from-[#4b5563] via-[#374151] to-[#1f2937] p-[3px] shadow-[0_20px_36px_-16px_rgba(17,20,24,0.65)]">
         <div className="relative aspect-[9/19] overflow-hidden rounded-[23px] bg-black">
           {src ? (
             <Image
@@ -154,7 +154,7 @@ export default function DeviceShowcase({
       {/* Halo de marca detrás del conjunto */}
       <span
         aria-hidden
-        className="pointer-events-none absolute -inset-x-2 bottom-0 top-2 rounded-[48px] bg-brand-400/25 blur-3xl"
+        className="pointer-events-none absolute -inset-x-2 bottom-0 top-2 rounded-[48px] bg-gold-400/25 blur-3xl"
       />
 
       <motion.div {...floatProps(0)} className="relative w-[74%] max-w-[460px]">

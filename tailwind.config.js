@@ -7,34 +7,41 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Superficies claras
+        // Paleta "Carbón y Champán": neutros cálidos + un único acento dorado
         surface: {
           DEFAULT: "#FFFFFF",
-          soft: "#F8FAFC", // slate-50
-          muted: "#F1F5F9", // slate-100
+          soft: "#F6F5F2", // blanco cálido
+          muted: "#EFEDE8",
         },
         line: {
-          DEFAULT: "#E2E8F0", // slate-200
-          soft: "#F1F5F9",
+          DEFAULT: "#E6E3DC",
+          soft: "#EFEDE8",
         },
         ink: {
-          title: "#0F172A", // slate-900
-          body: "#475569", // slate-600
-          muted: "#94A3B8", // slate-400
+          title: "#111418",
+          body: "#4A5059",
+          muted: "#8A9099",
         },
-        // Acento morado
-        brand: {
-          50: "#F5F3FF",
-          100: "#EDE9FE",
-          200: "#DDD6FE",
-          300: "#C4B5FD",
-          400: "#A78BFA",
-          500: "#8B5CF6",
-          600: "#7C3AED",
-          700: "#6D28D9",
-          800: "#5B21B6",
-          900: "#4C1D95",
-          950: "#2E1065",
+        // Fondos oscuros y botón primario
+        carbon: {
+          700: "#2A2F37",
+          800: "#1C2026",
+          900: "#12151A",
+          950: "#0B0D10",
+        },
+        // Único acento: champán / oro
+        gold: {
+          50: "#FBF7EC",
+          100: "#F4EBD3",
+          200: "#E9D8A8",
+          300: "#E0C783",
+          400: "#D8B866",
+          500: "#C9A24B",
+          600: "#B08A35",
+          700: "#8A6A1F", // texto sobre fondo claro (AA)
+          800: "#6B5218",
+          900: "#4A3910",
+          950: "#2A200A",
         },
       },
       fontFamily: {
@@ -42,10 +49,10 @@ module.exports = {
         display: ["var(--font-inter)", "system-ui", "sans-serif"],
       },
       boxShadow: {
-        soft: "0 1px 2px rgba(15,23,42,0.04), 0 8px 24px -12px rgba(15,23,42,0.10)",
-        lift: "0 2px 4px rgba(15,23,42,0.04), 0 24px 48px -16px rgba(15,23,42,0.16)",
-        brand: "0 12px 32px -10px rgba(124,58,237,0.55)",
-        "brand-lg": "0 18px 48px -12px rgba(124,58,237,0.65)",
+        soft: "0 1px 2px rgba(17,20,24,0.04), 0 8px 24px -12px rgba(17,20,24,0.10)",
+        lift: "0 2px 4px rgba(17,20,24,0.04), 0 24px 48px -16px rgba(17,20,24,0.16)",
+        brand: "0 12px 32px -12px rgba(11,13,16,0.45)",
+        "brand-lg": "0 18px 48px -14px rgba(11,13,16,0.55)",
       },
       animation: {
         float: "float 7s ease-in-out infinite",

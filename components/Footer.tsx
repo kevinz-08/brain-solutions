@@ -11,7 +11,7 @@ const navGroups = [
     links: [
       { label: "Qué hacemos", href: "#servicios" },
       { label: "Cómo lo hacemos", href: "#proceso" },
-      { label: "A quién ayudamos", href: "#alcance" },
+      { label: "Categorías y ciudades", href: "#categorias" },
       { label: "Casos de éxito", href: "#casos" },
     ],
   },
@@ -49,28 +49,28 @@ export default function Footer() {
             <Link href="/" className="inline-flex transition-opacity hover:opacity-70">
               <Image
                 src="/logo.png"
-                alt="Brain Solutions"
+                alt="Lumo Ecom"
                 width={120}
                 height={40}
                 className="h-9 w-auto"
               />
             </Link>
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-ink-body">
-              Digitalizamos tiendas con e-commerce web a medida. Diseño, desarrollo
-              y acompañamiento para negocios que quieren vender online en serio.
+              E-commerce a medida para tiendas de repuestos y accesorios de lujo para
+              automóviles. Diseño, desarrollo y acompañamiento.
             </p>
 
             <div className="mt-6 space-y-2.5">
               <a
-                href="mailto:hola@brainsolutions.co"
-                className="flex items-center gap-2.5 text-sm text-ink-body transition-colors hover:text-brand-700"
+                href="mailto:hola@lumoecom.com"
+                className="flex items-center gap-2.5 text-sm text-ink-body transition-colors hover:text-gold-700"
               >
                 <Mail className="h-4 w-4 text-ink-muted" />
-                hola@brainsolutions.co
+                hola@lumoecom.com
               </a>
               <p className="flex items-center gap-2.5 text-sm text-ink-body">
                 <MapPin className="h-4 w-4 text-ink-muted" />
-                Colombia · Trabajo remoto
+                Bucaramanga · Cúcuta · Medellín · Bogotá
               </p>
             </div>
           </div>
@@ -87,7 +87,7 @@ export default function Footer() {
                     <a
                       href={l.href}
                       onClick={(e) => smoothScroll(e, l.href)}
-                      className="text-sm text-ink-body transition-colors hover:text-brand-700"
+                      className="text-sm text-ink-body transition-colors hover:text-gold-700"
                     >
                       {l.label}
                     </a>
@@ -102,13 +102,13 @@ export default function Footer() {
         <div className="mt-14 flex flex-col gap-6 border-t border-line pt-8 md:flex-row md:items-center md:justify-between">
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
             <p className="text-xs text-ink-muted">
-              © {year} Brain Solutions. Todos los derechos reservados.
+              © {year} Lumo Ecom. Todos los derechos reservados.
             </p>
             {legal.map((l) => (
               <Link
                 key={l.href}
                 href={l.href}
-                className="text-xs text-ink-muted transition-colors hover:text-brand-700"
+                className="text-xs text-ink-muted transition-colors hover:text-gold-700"
               >
                 {l.label}
               </Link>
@@ -123,7 +123,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={label}
-                className="grid h-9 w-9 place-items-center rounded-full border border-line text-ink-muted transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-200 hover:bg-brand-50 hover:text-brand-700"
+                className="grid h-9 w-9 place-items-center rounded-full border border-line text-ink-muted transition-all duration-300 hover:-translate-y-0.5 hover:border-gold-200 hover:bg-gold-50 hover:text-gold-700"
               >
                 <Icon className="h-4 w-4" />
               </a>

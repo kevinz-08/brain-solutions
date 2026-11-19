@@ -11,27 +11,27 @@ const steps = [
     step: "01",
     title: "Estrategia",
     duration: "Semana 1",
-    body: "Entendemos tu catálogo, tus márgenes y a quién le vendes. Definimos objetivos de conversión, alcance y prioridades antes de dibujar una sola pantalla.",
+    body: "Entendemos tu catálogo de repuestos o accesorios, tus marcas, tus márgenes y a qué tipo de cliente le vendes. Definimos objetivos, alcance y prioridades antes de dibujar una sola pantalla.",
   },
   {
     icon: PenTool,
     step: "02",
     title: "Diseño UI/UX",
-    duration: "Semanas 2-3",
-    body: "Diseñamos el recorrido completo de compra: home, categoría, ficha de producto y checkout. Prototipo navegable para que lo valides antes de programar.",
+    duration: "Semanas 1-2",
+    body: "Diseñamos el recorrido completo de compra: home, selector de vehículo, categoría, ficha de producto y checkout. Prototipo navegable para que lo valides antes de programar.",
   },
   {
     icon: Code2,
     step: "03",
     title: "Desarrollo",
-    duration: "Semanas 4-7",
-    body: "Frontend en Next.js y backend con tu catálogo, pagos, envíos e inventario. Entregas semanales en un entorno de pruebas para revisar avances reales.",
+    duration: "Semanas 2-5",
+    body: "Frontend en Next.js y backend con tu catálogo, compatibilidades, pagos, envíos e inventario. Entregas semanales en un entorno de pruebas para revisar avances reales.",
   },
   {
     icon: Rocket,
     step: "04",
     title: "Lanzamiento",
-    duration: "Semana 8",
+    duration: "Semana 6",
     body: "Migración, pruebas de carga, SEO técnico y puesta en producción. Capacitamos a tu equipo y acompañamos las primeras semanas de venta real.",
   },
 ];
@@ -81,7 +81,7 @@ export default function Process() {
       {/* Halo de marca muy tenue, ancla la composición sin ensuciarla */}
       <span
         aria-hidden
-        className="pointer-events-none absolute -left-40 top-1/3 h-[420px] w-[420px] rounded-full bg-brand-100/50 blur-3xl"
+        className="pointer-events-none absolute -left-40 top-1/3 h-[420px] w-[420px] rounded-full bg-gold-100/50 blur-3xl"
       />
 
       <div className="relative mx-auto max-w-6xl px-6">
@@ -94,8 +94,7 @@ export default function Process() {
                 <br className="hidden sm:block" /> sin sorpresas a mitad de camino
               </h2>
               <p className="mt-5 text-base leading-relaxed text-ink-body">
-                Ocho semanas promedio desde la primera reunión hasta la primera venta. Sabes
-                en qué etapa estás y qué recibes en cada una.
+                Un catálogo sale en 3 días hábiles, una tienda completa en 4 a 6 semanas y un proyecto Pro en 8 a 10. Las etapas de abajo describen el plan Tienda. Sabes en qué etapa estás y qué recibes en cada una.
               </p>
             </Reveal>
 
@@ -111,12 +110,12 @@ export default function Process() {
                           type="button"
                           onClick={() => goToStep(i)}
                           className={`group flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition-colors duration-300 ${
-                            isActive ? "bg-brand-50" : "hover:bg-surface-soft"
+                            isActive ? "bg-gold-50" : "hover:bg-surface-soft"
                           }`}
                         >
                           <span className="relative h-px w-8 overflow-hidden bg-line">
                             <motion.span
-                              className="absolute inset-0 origin-left bg-brand-600"
+                              className="absolute inset-0 origin-left bg-gold-500"
                               initial={false}
                               animate={{ scaleX: isActive ? 1 : 0 }}
                               transition={{ duration: 0.45, ease: EASE }}
@@ -124,7 +123,7 @@ export default function Process() {
                           </span>
                           <span
                             className={`text-xs font-bold tracking-wider transition-colors duration-300 ${
-                              isActive ? "text-brand-600" : "text-ink-muted"
+                              isActive ? "text-gold-700" : "text-ink-muted"
                             }`}
                           >
                             {step}
@@ -148,7 +147,7 @@ export default function Process() {
               <div className="mt-10 rounded-2xl border border-line bg-surface-soft p-5">
                 <p className="text-sm leading-relaxed text-ink-body">
                   ¿Tu proyecto es más grande o más urgente?{" "}
-                  <span className="font-semibold text-brand-700">
+                  <span className="font-semibold text-gold-700">
                     Ajustamos el plan en la primera llamada.
                   </span>
                 </p>
@@ -162,7 +161,7 @@ export default function Process() {
             <div className="absolute left-[27px] top-3 hidden h-[calc(100%-3rem)] w-px bg-line sm:block" />
             <motion.div
               style={{ scaleY: progress }}
-              className="absolute left-[27px] top-3 hidden h-[calc(100%-3rem)] w-px origin-top bg-gradient-to-b from-brand-500 to-brand-700 sm:block"
+              className="absolute left-[27px] top-3 hidden h-[calc(100%-3rem)] w-px origin-top bg-gradient-to-b from-gold-400 to-gold-600 sm:block"
             />
 
             {steps.map(({ icon: Icon, step, title, duration, body }, i) => {
@@ -185,7 +184,7 @@ export default function Process() {
                   <span
                     className={`relative mb-5 grid h-12 w-12 place-items-center rounded-2xl transition-all duration-500 sm:absolute sm:left-0 sm:top-0 sm:mb-0 sm:h-14 sm:w-14 ${
                       isActive
-                        ? "bg-gradient-to-br from-brand-500 via-brand-600 to-brand-800 shadow-brand ring-1 ring-inset ring-white/25"
+                        ? "bg-gradient-to-br from-carbon-700 via-carbon-800 to-carbon-950 shadow-brand ring-1 ring-inset ring-white/10"
                         : "border border-line bg-white shadow-soft"
                     }`}
                   >
@@ -198,7 +197,7 @@ export default function Process() {
                     <Icon
                       strokeWidth={1.9}
                       className={`relative h-5 w-5 transition-colors duration-500 sm:h-6 sm:w-6 ${
-                        isActive ? "text-white" : "text-brand-600"
+                        isActive ? "text-gold-300" : "text-gold-700"
                       }`}
                     />
                   </span>
@@ -212,7 +211,7 @@ export default function Process() {
                   </span>
 
                   <div className="flex items-center gap-3">
-                    <span className="text-xs font-bold tracking-wider text-brand-600">
+                    <span className="text-xs font-bold tracking-wider text-gold-700">
                       {step}
                     </span>
                     <span className="h-px w-5 bg-line" />

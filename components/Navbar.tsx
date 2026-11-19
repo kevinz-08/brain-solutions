@@ -11,7 +11,7 @@ import { EASE } from "./Reveal";
 const links = [
   { label: "Qué hacemos", href: "#servicios" },
   { label: "Cómo lo hacemos", href: "#proceso" },
-  { label: "A quién ayudamos", href: "#alcance" },
+  { label: "Categorías", href: "#categorias" },
   { label: "Casos", href: "#casos" },
   { label: "FAQ", href: "#faq" },
 ];
@@ -45,7 +45,7 @@ export default function Navbar() {
           href="/"
           className="flex items-center gap-2.5 transition-opacity duration-300 hover:opacity-70"
         >
-          <Image src="/logo.png" alt="Brain Solutions" width={120} height={40} className="h-9 w-auto" priority />
+          <Image src="/logo.png" alt="Lumo Ecom" width={120} height={40} className="h-9 w-auto" priority />
         </Link>
 
         {/* Navegación escritorio */}
@@ -58,7 +58,7 @@ export default function Navbar() {
               className="group relative rounded-lg px-3.5 py-2 text-sm font-medium text-ink-body transition-colors duration-200 hover:text-ink-title"
             >
               {link.label}
-              <span className="absolute inset-x-3.5 bottom-1 h-px origin-left scale-x-0 bg-brand-600 transition-transform duration-300 group-hover:scale-x-100" />
+              <span className="absolute inset-x-3.5 bottom-1 h-px origin-left scale-x-0 bg-gold-500 transition-transform duration-300 group-hover:scale-x-100" />
             </a>
           ))}
         </nav>
@@ -68,7 +68,7 @@ export default function Navbar() {
           <a
             href="#agendar"
             onClick={(e) => handleNavClick(e, "#agendar")}
-            className="group inline-flex items-center gap-2 rounded-full bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white shadow-brand transition-all duration-300 hover:-translate-y-0.5 hover:bg-brand-700 hover:shadow-brand-lg"
+            className="group inline-flex items-center gap-2 rounded-full bg-carbon-950 px-5 py-2.5 text-sm font-semibold text-white shadow-brand transition-all duration-300 hover:-translate-y-0.5 hover:bg-carbon-800 hover:shadow-brand-lg"
           >
             Agendar llamada
             <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
@@ -109,7 +109,7 @@ export default function Navbar() {
             <a
               href="#agendar"
               onClick={(e) => handleNavClick(e, "#agendar")}
-              className="mt-2 rounded-xl bg-brand-600 px-3 py-3 text-center text-sm font-semibold text-white"
+              className="mt-2 rounded-xl bg-carbon-950 px-3 py-3 text-center text-sm font-semibold text-white"
             >
               Agendar llamada
             </a>

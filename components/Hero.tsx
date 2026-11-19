@@ -6,8 +6,6 @@ import { ArrowRight, Play, Pause, PlayCircle } from "lucide-react";
 import { useSmoothScroll } from "@/lib/hooks/useSmoothScroll";
 import { EASE } from "./Reveal";
 
-const badges = ["Inventario en tiempo real", "Clientes y pedidos en un panel", "Listo para escalar"];
-
 export default function Hero() {
   const smoothScroll = useSmoothScroll(72);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -42,7 +40,7 @@ export default function Hero() {
   return (
     <section className="relative overflow-hidden bg-white pb-20 pt-36 md:pb-28 md:pt-44">
       {/* Halo de acento detrás del titular */}
-      <div className="pointer-events-none absolute -top-40 left-0 h-[420px] w-[620px] rounded-full bg-brand-100/50 blur-[130px]" />
+      <div className="pointer-events-none absolute -top-40 left-0 h-[420px] w-[620px] rounded-full bg-gold-100/50 blur-[130px]" />
 
       <div className="relative mx-auto grid max-w-[84rem] items-center gap-16 px-6 lg:grid-cols-[minmax(0,28rem)_minmax(0,1fr)] lg:gap-12">
         {/* ── Columna de texto ── */}
@@ -51,10 +49,11 @@ export default function Hero() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: EASE, delay: 0.1 }}
-            className="text-[2.6rem] font-semibold leading-[1.06] tracking-[-0.04em] text-ink-title sm:text-5xl md:text-[3.4rem] lg:text-[3.1rem] xl:text-[3.4rem]"
+            className="text-[2.1rem] font-semibold leading-[1.1] tracking-[-0.035em] text-ink-title sm:text-[2.6rem] md:text-5xl lg:text-[2.5rem] xl:text-[2.75rem]"
           >
-            Tu tienda física, ahora vendiendo{" "}
-            <span className="text-gradient-brand">24/7</span> sin límites.
+            Lleva tu negocio de repuestos a internet desde{" "}
+            <span className="text-gradient-brand">$899.990</span> y empieza a recibir
+            pedidos esta semana.
           </motion.h1>
 
           <motion.p
@@ -63,8 +62,9 @@ export default function Hero() {
             transition={{ duration: 0.8, ease: EASE, delay: 0.2 }}
             className="mt-6 max-w-xl text-lg leading-relaxed text-ink-body"
           >
-            Digitalizamos tu negocio mediante aplicaciones web personalizadas,
-            dándote el control total de tu inventario y tus clientes.
+            E-commerce a medida para tiendas de repuestos y accesorios de lujo para
+            automóviles en Bucaramanga, Cúcuta, Medellín y Bogotá. Buscador por
+            vehículo, inventario real y pagos locales.
           </motion.p>
 
           {/* CTAs */}
@@ -77,7 +77,7 @@ export default function Hero() {
             <a
               href="#agendar"
               onClick={(e) => smoothScroll(e, "#agendar")}
-              className="group inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-full bg-brand-600 px-6 py-3.5 text-[15px] font-semibold text-white shadow-brand xl:px-7 xl:text-base transition-all duration-300 hover:-translate-y-0.5 hover:scale-[1.02] hover:bg-brand-700 hover:shadow-brand-lg active:scale-[0.99]"
+              className="group inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-full bg-carbon-950 px-6 py-3.5 text-[15px] font-semibold text-white shadow-brand xl:px-7 xl:text-base transition-all duration-300 hover:-translate-y-0.5 hover:scale-[1.02] hover:bg-carbon-800 hover:shadow-brand-lg active:scale-[0.99]"
             >
               Agenda una Demo
               <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
@@ -86,9 +86,9 @@ export default function Hero() {
             <a
               href="#proceso"
               onClick={(e) => smoothScroll(e, "#proceso")}
-              className="group inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-full border border-line bg-white px-6 py-3.5 text-[15px] font-semibold text-ink-title xl:px-7 xl:text-base transition-all duration-300 hover:-translate-y-0.5 hover:border-brand-200 hover:bg-brand-50 hover:text-brand-700"
+              className="group inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-full border border-line bg-white px-6 py-3.5 text-[15px] font-semibold text-ink-title xl:px-7 xl:text-base transition-all duration-300 hover:-translate-y-0.5 hover:border-gold-200 hover:bg-gold-50 hover:text-gold-700"
             >
-              <PlayCircle className="h-[18px] w-[18px] text-ink-muted transition-colors duration-300 group-hover:text-brand-600" />
+              <PlayCircle className="h-[18px] w-[18px] text-ink-muted transition-colors duration-300 group-hover:text-gold-700" />
               Ver cómo funciona
             </a>
           </motion.div>
@@ -117,7 +117,7 @@ export default function Hero() {
           {/* Resplandor cromático detrás del borde superior del panel */}
           <div
             aria-hidden
-            className="pointer-events-none absolute -top-8 left-4 right-0 h-32 rounded-[100px] bg-[linear-gradient(90deg,#4F46E5_0%,#7C3AED_28%,#C026D3_52%,#F43F5E_76%,#FB923C_100%)] opacity-50 blur-[46px]"
+            className="pointer-events-none absolute -top-8 left-4 right-0 h-32 rounded-[100px] bg-[linear-gradient(90deg,#E9D8A8_0%,#D8B866_40%,#C9A24B_70%,#B08A35_100%)] opacity-40 blur-[46px]"
           />
 
           {/* Panel: alineado al borde derecho del contenedor, simétrico con el texto */}
@@ -129,7 +129,7 @@ export default function Hero() {
               <span className="h-2.5 w-2.5 rounded-full bg-slate-200" />
               <div className="ml-2 flex h-5 flex-1 items-center rounded-full bg-surface-soft px-3">
                 <span className="text-[9px] font-medium tracking-wide text-ink-muted">
-                  tutienda.com/admin
+                  tutiendadeautos.com/admin
                 </span>
               </div>
             </div>

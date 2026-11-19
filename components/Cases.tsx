@@ -56,8 +56,8 @@ export default function Cases() {
         <SectionHeader
           title={
             <>
-              Empresas que ya
-              <br className="hidden sm:block" /> digitalizaron su tienda
+              Tiendas que ya
+              <br className="hidden sm:block" /> venden en línea con nosotros
             </>
           }
           description="Negocios reales que pasaron de vender por catálogo, mensajes y llamadas a tener una tienda propia funcionando 24/7."
@@ -81,7 +81,7 @@ export default function Cases() {
                 transition={{ duration: 0.7, ease: EASE, delay: i * 0.1 }}
                 className={`group flex w-[85vw] shrink-0 snap-center flex-col rounded-3xl border border-line bg-white p-5 shadow-soft transition-all duration-500 sm:w-[70vw] md:w-auto md:p-6 ${
                   isLink
-                    ? "hover:-translate-y-1.5 hover:border-brand-200 hover:shadow-lift"
+                    ? "hover:-translate-y-1.5 hover:border-gold-200 hover:shadow-lift"
                     : "cursor-default"
                 }`}
               >
@@ -104,7 +104,7 @@ export default function Cases() {
 
                 <div className="mt-6 flex items-start justify-between gap-3">
                   <div className="min-w-0">
-                    <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-brand-600">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-gold-700">
                       {p.industry}
                     </p>
                     <h3 className="mt-1.5 truncate text-xl font-extrabold tracking-[-0.03em] text-ink-title">
@@ -113,7 +113,7 @@ export default function Cases() {
                   </div>
 
                   {isLink ? (
-                    <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-line text-ink-muted transition-all duration-300 group-hover:border-brand-600 group-hover:bg-brand-600 group-hover:text-white">
+                    <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-line text-ink-muted transition-all duration-300 group-hover:border-carbon-950 group-hover:bg-carbon-950 group-hover:text-white">
                       <ArrowUpRight className="h-4 w-4" />
                     </span>
                   ) : (
@@ -133,7 +133,7 @@ export default function Cases() {
                   {p.tags.map((t) => (
                     <li
                       key={t}
-                      className="rounded-full border border-line bg-surface-soft px-2.5 py-1 text-[11px] font-medium text-ink-body transition-colors duration-300 group-hover:border-brand-100 group-hover:bg-brand-50 group-hover:text-brand-700"
+                      className="rounded-full border border-line bg-surface-soft px-2.5 py-1 text-[11px] font-medium text-ink-body transition-colors duration-300 group-hover:border-gold-100 group-hover:bg-gold-50 group-hover:text-gold-700"
                     >
                       {t}
                     </li>

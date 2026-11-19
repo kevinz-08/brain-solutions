@@ -6,19 +6,22 @@ import { Plus } from "lucide-react";
 import SectionHeader from "./SectionHeader";
 import Reveal, { EASE } from "./Reveal";
 import { useSmoothScroll } from "@/lib/hooks/useSmoothScroll";
+import { plans, formatCOP } from "@/data/plans";
+
+const price = (id: string) => formatCOP(plans.find((p) => p.id === id)!.price);
 
 const faqs = [
   {
     q: "¿Cuánto tarda en estar lista mi tienda?",
-    a: "Una tienda estándar toma entre 6 y 8 semanas desde la primera reunión hasta el lanzamiento. Catálogos muy grandes, integraciones con ERP o operaciones B2B pueden extenderlo a 10-12 semanas. En la llamada inicial te damos un rango concreto según tu caso, no una estimación genérica.",
+    a: "Depende del plan: el Catálogo se entrega en 3 días hábiles, la Tienda completa en 4 a 6 semanas y el plan Pro en 8 a 10. Los tiempos cuentan desde que recibimos tu logo, las fotos y la lista de productos. Catálogos muy grandes o integraciones con un ERP pueden extender el plazo, y te lo confirmamos en la llamada inicial.",
   },
   {
     q: "¿Cuánto cuesta un e-commerce a medida?",
-    a: "Trabajamos por proyecto cerrado: defines el alcance y el precio antes de empezar, sin costos que aparecen a mitad de camino. El rango depende del tamaño del catálogo y de las integraciones que necesites. Si tu presupuesto no da para el alcance completo, proponemos una primera fase que ya venda y que crezca después.",
+    a: `Tenemos tres planes: Catálogo desde ${price("catalogo")} (pago único), Tienda desde ${price("tienda")} y Pro desde ${price("pro")}. El precio final se confirma antes de empezar, según el tamaño del catálogo y las integraciones que necesites, sin costos que aparecen a mitad de camino. En el plan Tienda puedes pagar 50 % de anticipo y el saldo a la entrega. La pasarela de pagos, el hosting y el dominio no están incluidos y los pagas directamente tú.`,
   },
   {
     q: "¿Por qué no simplemente usar Shopify o WooCommerce?",
-    a: "Si vendes pocos productos y tu operación es simple, una plataforma genérica puede ser suficiente y te lo diremos. El e-commerce a medida tiene sentido cuando tu forma de vender no cabe en el molde: precios por tipo de cliente, compatibilidades, inventario en varias sedes, o cuando las comisiones por venta ya te cuestan más que el desarrollo.",
+    a: "Si vendes pocos productos y tu operación es simple, una plataforma genérica puede ser suficiente y te lo diremos. El e-commerce a medida tiene sentido cuando tu forma de vender no cabe en el molde: precios por tipo de cliente, compatibilidad por marca, modelo y año, inventario en varias sedes, o cuando las comisiones por venta ya te cuestan más que el desarrollo.",
   },
   {
     q: "¿Quién es dueño del código y de los datos?",
@@ -26,15 +29,15 @@ const faqs = [
   },
   {
     q: "¿Ofrecen mantenimiento después del lanzamiento?",
-    a: "Sí. Todos los proyectos incluyen 30 días de soporte tras el lanzamiento para ajustes y correcciones. Después puedes contratar un plan mensual que cubre monitoreo, actualizaciones de seguridad, respaldos y una bolsa de horas para mejoras continuas.",
+    a: "Sí, según el plan. El Catálogo incluye una ronda de correcciones; la Tienda, 1 hora de capacitación y 30 días de soporte tras el lanzamiento; y el plan Pro, 3 meses de acompañamiento con reportes mensuales y ajustes del embudo. Después puedes contratar un plan mensual que cubre monitoreo, actualizaciones de seguridad, respaldos y una bolsa de horas para mejoras.",
   },
   {
     q: "¿Puedo administrar la tienda sin saber programar?",
-    a: "Ese es el objetivo. Entregamos un panel de administración pensado para tu equipo: cargar productos, cambiar precios, gestionar pedidos y publicar promociones sin tocar código. Incluye capacitación en vivo y material de consulta.",
+    a: "Ese es el objetivo. Los planes Tienda y Pro incluyen un panel de administración pensado para tu equipo: cargar productos (también de forma masiva desde Excel), cambiar precios, gestionar pedidos e inventario sin tocar código. Incluye capacitación en vivo. El plan Catálogo es más simple: nosotros cargamos los productos y tú nos pides los cambios.",
   },
   {
     q: "¿Se integra con mis sistemas actuales?",
-    a: "En la mayoría de casos sí. Conectamos pasarelas de pago, facturación electrónica, transportadoras, ERPs y CRMs. Si el sistema tiene API o webhooks, lo integramos; si no, buscamos una alternativa como sincronización por archivos o procesos programados.",
+    a: "En la mayoría de casos sí. La Tienda conecta pasarelas de pago (tarjeta, PSE y más) y plataformas de envíos; el plan Pro suma facturación electrónica con un proveedor autorizado y sincronización de inventario con el sistema que ya uses. Si ese sistema tiene API o webhooks, lo integramos; si no, buscamos una alternativa como sincronización por archivos o procesos programados.",
   },
   {
     q: "¿Qué pasa si ya tengo una tienda y quiero migrar?",
@@ -64,11 +67,11 @@ export default function FAQ() {
                     <button
                       onClick={() => setOpen(isOpen ? null : i)}
                       aria-expanded={isOpen}
-                      className="flex w-full items-center justify-between gap-6 px-6 py-5 text-left transition-colors duration-200 hover:bg-brand-50/40 md:px-8 md:py-6"
+                      className="flex w-full items-center justify-between gap-6 px-6 py-5 text-left transition-colors duration-200 hover:bg-gold-50/40 md:px-8 md:py-6"
                     >
                       <span
                         className={`text-base font-medium transition-colors duration-200 md:text-[17px] ${
-                          isOpen ? "text-brand-700" : "text-ink-title"
+                          isOpen ? "text-gold-700" : "text-ink-title"
                         }`}
                       >
                         {f.q}
@@ -78,7 +81,7 @@ export default function FAQ() {
                         transition={{ duration: 0.3, ease: EASE }}
                         className={`grid h-8 w-8 shrink-0 place-items-center rounded-full border transition-colors duration-300 ${
                           isOpen
-                            ? "border-brand-600 bg-brand-600 text-white"
+                            ? "border-carbon-950 bg-carbon-950 text-white"
                             : "border-line text-ink-muted"
                         }`}
                       >
@@ -114,7 +117,7 @@ export default function FAQ() {
               <a
                 href="#agendar"
                 onClick={(e) => smoothScroll(e, "#agendar")}
-                className="font-semibold text-brand-700 underline decoration-brand-200 underline-offset-4 transition-colors hover:decoration-brand-600"
+                className="font-semibold text-gold-700 underline decoration-gold-200 underline-offset-4 transition-colors hover:decoration-gold-600"
               >
                 Resolvámosla en una llamada
               </a>

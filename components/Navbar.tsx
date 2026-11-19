@@ -13,6 +13,7 @@ const links = [
   { label: "Cómo lo hacemos", href: "#proceso" },
   { label: "Categorías", href: "#categorias" },
   { label: "Casos", href: "#casos" },
+  { label: "Planes", href: "#planes" },
   { label: "FAQ", href: "#faq" },
 ];
 
